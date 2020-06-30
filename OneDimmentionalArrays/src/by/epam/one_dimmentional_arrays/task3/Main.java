@@ -26,25 +26,25 @@ public class Main {
         result[firstKnownIndex] = array[firstKnownIndex];
         result[secondKnownIndex] = array[secondKnownIndex];
 
-        if (!findKeyRecursively(0, result, firstKnownIndex, secondKnownIndex)) {
+        if (!isFindKeyPossible(0, result, firstKnownIndex, secondKnownIndex)) {
             throw new IllegalArgumentException("unable to build key");
         }
 
         return result;
     }
 
-    private static boolean findKeyRecursively(int currentIndex, int[] array, int firstKnownIndex, int secondKnownIndex) {
+    private static boolean isFindKeyPossible(int currentIndex, int[] array, int firstKnownIndex, int secondKnownIndex) {
         if (currentIndex == array.length) {
             return isKeyMatches(array);
         }
 
         if (currentIndex == firstKnownIndex || currentIndex == secondKnownIndex) {
-            return findKeyRecursively(currentIndex + 1, array, firstKnownIndex, secondKnownIndex);
+            return isFindKeyPossible(currentIndex + 1, array, firstKnownIndex, secondKnownIndex);
         }
 
         for (int i = 1; i <= 6; i++) {
             array[currentIndex] = i;
-            if (findKeyRecursively(currentIndex + 1, array, firstKnownIndex, secondKnownIndex)) {
+            if (isFindKeyPossible(currentIndex + 1, array, firstKnownIndex, secondKnownIndex)) {
                 return true;
             }
         }
